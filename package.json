@@ -1,0 +1,25 @@
+{
+  "name": "pathfindingvisualization",
+  "version": "1.0.0",
+  "description": "Basic path finding algorithm visualization for practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chris-McVey/pathFindingVisualization.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chris-McVey/pathFindingVisualization/issues"
+  },
+  "homepage": "https://github.com/Chris-McVey/pathFindingVisualization#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
