@@ -86,3 +86,7 @@
     background-color: rgb(255, 254, 106);
   }
 }
+
+button {
+  margin: 10px;
+}
