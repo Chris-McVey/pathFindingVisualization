@@ -1,8 +1,10 @@
 import React from 'react';
 
+import MainVisualizer from './MainVisualizer.jsx';
+
 const App = () => {
   return (
-    <div>React is up and working!</div>
+    <MainVisualizer />
   )
 }
 
