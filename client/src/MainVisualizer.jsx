@@ -6,8 +6,8 @@ import { dijkstra, getNodesInShortestPathOrder } from './algorithms/dijkstra.js'
 
 const startNodeRow = 10;
 const startNodeCol = 15;
-const finishNodeRow = 10;
-const finishNodeCol = 35;
+const finishNodeRow = 3;
+const finishNodeCol = 42;
 
 
 const createNode = (row, col) => {
@@ -41,15 +41,13 @@ const createGrid = () => {
 
 const MainVisualizer = () => {
   const [grid, setGrid] = useState([]);
+  const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
   useEffect(() => {
     const grid = createGrid();
     setGrid(grid);
   }, []);
 
-  // useEffect(() => {
-  //   visualizeDijkstra();
-  // }, [grid]);
 
   const visualizeDijkstra = (grid) => {
     const startNode = grid[startNodeRow][startNodeCol];
@@ -83,6 +81,35 @@ const MainVisualizer = () => {
     }
   }
 
+  const handleMouseDown = (grid, row, col) => {
+    const newGrid = getNewGridWithWallToggled(grid, row, col);
+    setGrid(newGrid);
+    setMouseIsPressed(true);
+  }
+
+  const handleMouseEnter = (grid, row, col, mouseIsPressed) => {
+    if (!mouseIsPressed) {
+      return;
+    }
+    const newGrid = getNewGridWithWallToggled(grid, row, col);
+    setGrid(newGrid);
+  }
+
+  const handleMouseUp = () => {
+    setMouseIsPressed(false);
+  }
+
+  const getNewGridWithWallToggled = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = {
+      ...node,
+      isWall: !node.isWall,
+    };
+    newGrid[row][col] = newNode;
+    return newGrid;
+  };
+
 
 
   return (
@@ -97,7 +124,7 @@ const MainVisualizer = () => {
             {row.map((node, nodeIndex) => {
               const { row, col, isFinish, isStart, isWall } = node;
               return (
-                <Node key={nodeIndex} row={row} col={col} isFinish={isFinish} isStart={isStart} isWall={isWall} />
+                <Node key={nodeIndex} row={row} col={col} isFinish={isFinish} isStart={isStart} isWall={isWall} mouseIsPressed={mouseIsPressed} grid={grid} onMouseDown={(grid, row, col) => handleMouseDown(grid, row, col)} onMouseEnter={(grid, row, col, mouseIsPressed) => handleMouseEnter(grid, row, col, mouseIsPressed)} onMouseUp={() => handleMouseUp()} />
               )
             })}
           </div>
