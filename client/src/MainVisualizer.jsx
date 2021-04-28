@@ -4,13 +4,8 @@ import Node from './Node.jsx';
 
 import { dijkstra, getNodesInShortestPathOrder } from './algorithms/dijkstra.js';
 
-const startNodeRow = 10;
-const startNodeCol = 15;
-const finishNodeRow = 3;
-const finishNodeCol = 42;
 
-
-const createNode = (row, col) => {
+const createNode = (row, col,startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
   return {
     col,
     row,
@@ -23,17 +18,60 @@ const createNode = (row, col) => {
   };
 };
 
-const createGrid = () => {
+const createGrid = (startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
     for (let col = 0; col < 50; col++) {
-      currentRow.push(createNode(row, col))
+      currentRow.push(createNode(row, col, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol))
     }
     grid.push(currentRow);
   }
   return grid;
 }
+
+const visualizeDijkstra = (grid, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
+  const startNode = grid[startNodeRow][startNodeCol];
+  const finishNode = grid[finishNodeRow][finishNodeCol];
+  const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+}
+
+const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+  for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+    if (i === visitedNodesInOrder.length) {
+      setTimeout(() => {
+        animateShortestPath(nodesInShortestPathOrder);
+      }, 10 * i);
+      return;
+    }
+    setTimeout(() => {
+      const node = visitedNodesInOrder[i];
+      document.getElementById(`node-${node.row}-${node.col}`).className = 'node nodeVisited';
+    }, 10 * i)
+  }
+}
+
+const animateShortestPath = (nodesInShortestPathOrder) => {
+  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+    setTimeout(() => {
+      const node = nodesInShortestPathOrder[i];
+      document.getElementById(`node-${node.row}-${node.col}`).className = 'node nodeShortestPath';
+    }, 50 * i);
+  }
+}
+
+const getNewGridWithWallToggled = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const newNode = {
+    ...node,
+    isWall: !node.isWall,
+  };
+  newGrid[row][col] = newNode;
+  return newGrid;
+};
 
 
 
@@ -42,44 +80,16 @@ const createGrid = () => {
 const MainVisualizer = () => {
   const [grid, setGrid] = useState([]);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
+  const [startNodeRow, setStartNodeRow] = useState(10);
+  const [startNodeCol, setStartNodeCol] = useState(15);
+  const [finishNodeRow, setFinishNodeRow] = useState(3);
+  const [finishNodeCol, setFinishNodeCol] = useState(42);
 
   useEffect(() => {
-    const grid = createGrid();
+    const grid = createGrid(startNodeRow, startNodeCol, finishNodeRow, finishNodeCol);
     setGrid(grid);
   }, []);
 
-
-  const visualizeDijkstra = (grid) => {
-    const startNode = grid[startNodeRow][startNodeCol];
-    const finishNode = grid[finishNodeRow][finishNodeCol];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-  }
-
-  const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length) {
-        setTimeout(() => {
-          animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
-        return;
-      }
-      setTimeout(() => {
-        const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className = 'node nodeVisited';
-      }, 10 * i)
-    }
-  }
-
-  const animateShortestPath = (nodesInShortestPathOrder) => {
-    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-      setTimeout(() => {
-        const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className = 'node nodeShortestPath';
-      }, 50 * i);
-    }
-  }
 
   const handleMouseDown = (grid, row, col) => {
     const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -99,22 +109,10 @@ const MainVisualizer = () => {
     setMouseIsPressed(false);
   }
 
-  const getNewGridWithWallToggled = (grid, row, col) => {
-    const newGrid = grid.slice();
-    const node = newGrid[row][col];
-    const newNode = {
-      ...node,
-      isWall: !node.isWall,
-    };
-    newGrid[row][col] = newNode;
-    return newGrid;
-  };
-
-
 
   return (
     <>
-    <button onClick={() => visualizeDijkstra(grid)}>
+    <button onClick={() => visualizeDijkstra(grid, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol)}>
           Visualize Dijkstra's Algorithm
         </button>
     <div className="grid">
