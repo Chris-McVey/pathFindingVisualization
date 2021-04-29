@@ -18,6 +18,8 @@ const createNode = (row, col,startNodeRow, startNodeCol, finishNodeRow, finishNo
   };
 };
 
+
+
 const createGrid = (startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
@@ -90,6 +92,21 @@ const MainVisualizer = () => {
     setGrid(grid);
   }, []);
 
+  const resetBoard = () => {
+    const blankGrid = createGrid(startNodeRow, startNodeCol, finishNodeRow, finishNodeCol);
+    let nodes = document.getElementsByClassName(`node`)
+    for (let node of nodes) {
+      if (node.id === `node-${startNodeRow}-${startNodeCol}`) {
+        node.className = 'node nodeStart';
+      } else if (node.id === `node-${finishNodeRow}-${finishNodeCol}`) {
+        node.className = 'node nodeFinish';
+      } else {
+        node.className = 'node';
+      }
+    }
+    setGrid(blankGrid);
+  }
+
 
   const handleMouseDown = (grid, row, col) => {
     const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -114,6 +131,9 @@ const MainVisualizer = () => {
     <>
     <button onClick={() => visualizeDijkstra(grid, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol)}>
           Visualize Dijkstra's Algorithm
+        </button>
+        <button onClick={() => resetBoard()}>
+          Reset Board
         </button>
     <div className="grid">
       {grid.map((row, rowIndex) => {
