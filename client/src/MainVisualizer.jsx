@@ -64,7 +64,7 @@ const MainVisualizer = () => {
     <div className="grid">
       {grid.map((row, rowIndex) => {
         return (
-          <div key={rowIndex}>
+          <div className='row' key={rowIndex}>
             {row.map((node, nodeIndex) => {
               const { row, col, isFinish, isStart, isWall } = node;
               return (
