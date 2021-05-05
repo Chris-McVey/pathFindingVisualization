@@ -1,22 +1,25 @@
-import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra.js';
+import {
+  dijkstra,
+  getNodesInShortestPathOrder,
+} from "../algorithms/dijkstra";
 
+const createNode = (row, col, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => ({
+  col,
+  row,
+  isStart: row === startNodeRow && col === startNodeCol,
+  isFinish: row === finishNodeRow && col === finishNodeCol,
+  distance: Infinity,
+  isVisited: false,
+  isWall: false,
+  previousNode: null,
+});
 
-const createNode = (row, col, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
-  return {
-    col,
-    row,
-    isStart: row === startNodeRow && col === startNodeCol,
-    isFinish: row === finishNodeRow && col === finishNodeCol,
-    distance: Infinity,
-    isVisited: false,
-    isWall: false,
-    previousNode: null
-  };
-};
-
-
-
-const createGrid = (startNodeRow, startNodeCol, finishNodeRow, finishNodeCol) => {
+const createGrid = (
+  startNodeRow,
+  startNodeCol,
+  finishNodeRow,
+  finishNodeCol
+) => {
   const grid = [];
   for (let row = 0; row < 20; row++) {
     const currentRow = [];
