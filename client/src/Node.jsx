@@ -23,10 +23,10 @@ const Node = ({
     <div
       id={`node-${row}-${col}`}
       className={`node ${extraClassName}`}
-      onMouseDown={() => onMouseDown(grid, row, col)}
+      onMouseDown={() => onMouseDown(grid, row, col, isStart, isFinish)}
       onMouseEnter={() => onMouseEnter(grid, row, col, mouseIsPressed)}
       onMouseUp={() => onMouseUp()}
-    ></div>
+    />
   );
 };
 

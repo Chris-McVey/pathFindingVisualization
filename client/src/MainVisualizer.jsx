@@ -35,7 +35,7 @@ const MainVisualizer = () => {
     );
 
     setGrid(newStartingPointGrid);
-  }, [startNodeCol]);
+  }, [startNodeCol, finishNodeCol]);
 
   const resetBoard = () => {
     const blankGrid = createGrid(
@@ -58,7 +58,10 @@ const MainVisualizer = () => {
     setGrid(blankGrid);
   };
 
-  const handleMouseDown = (grid, row, col) => {
+  const handleMouseDown = (grid, row, col, isStart, isFinish) => {
+    if (isStart || isFinish) {
+      return;
+    }
     const newGrid = getNewGridWithWallToggled(grid, row, col);
     setGrid(newGrid);
     setMouseIsPressed(true);
@@ -80,6 +83,8 @@ const MainVisualizer = () => {
     setStartNodeRow(18);
     setStartNodeCol(18);
   };
+
+  const handleMoveStartOrStop = () => {};
 
   return (
     <>
@@ -113,13 +118,14 @@ const MainVisualizer = () => {
                   isWall={isWall}
                   mouseIsPressed={mouseIsPressed}
                   grid={grid}
-                  onMouseDown={(grid, row, col) =>
-                    handleMouseDown(grid, row, col)
+                  onMouseDown={(grid, row, col, isStart, isFinish) =>
+                    handleMouseDown(grid, row, col, isStart, isFinish)
                   }
                   onMouseEnter={(grid, row, col, mouseIsPressed) =>
                     handleMouseEnter(grid, row, col, mouseIsPressed)
                   }
                   onMouseUp={() => handleMouseUp()}
+                  onClick={() => handleMoveStartOrStop()}
                 />
               );
             })}
