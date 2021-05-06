@@ -4,11 +4,8 @@ import Node from './Node.jsx';
 
 import {
   getNewGridWithWallToggled,
-  animateShortestPath,
-  animateDijkstra,
   visualizeDijkstra,
   createGrid,
-  createNode,
 } from './utilityFunctions/gridHelpers';
 
 const MainVisualizer = () => {
@@ -29,6 +26,17 @@ const MainVisualizer = () => {
     setGrid(startingGrid);
   }, []);
 
+  useEffect(() => {
+    const newStartingPointGrid = createGrid(
+      startNodeRow,
+      startNodeCol,
+      finishNodeRow,
+      finishNodeCol
+    );
+
+    setGrid(newStartingPointGrid);
+  }, [startNodeCol]);
+
   const resetBoard = () => {
     const blankGrid = createGrid(
       startNodeRow,
@@ -37,7 +45,8 @@ const MainVisualizer = () => {
       finishNodeCol
     );
     const nodes = document.getElementsByClassName(`node`);
-    for (const node of nodes) {
+    const nodeArray = Array.prototype.slice.call(nodes);
+    nodeArray.forEach((node) => {
       if (node.id === `node-${startNodeRow}-${startNodeCol}`) {
         node.className = 'node nodeStart';
       } else if (node.id === `node-${finishNodeRow}-${finishNodeCol}`) {
@@ -45,7 +54,7 @@ const MainVisualizer = () => {
       } else {
         node.className = 'node';
       }
-    }
+    });
     setGrid(blankGrid);
   };
 
@@ -67,6 +76,11 @@ const MainVisualizer = () => {
     setMouseIsPressed(false);
   };
 
+  const setStartNode = () => {
+    setStartNodeRow(18);
+    setStartNodeCol(18);
+  };
+
   return (
     <>
       <button
@@ -83,6 +97,7 @@ const MainVisualizer = () => {
         Visualize Dijkstra's Algorithm
       </button>
       <button onClick={() => resetBoard()}>Reset Board</button>
+      <button onClick={() => setStartNode()}>Set Start</button>
       <div className="grid">
         {grid.map((row, rowIndex) => (
           <div className="row" key={rowIndex}>
