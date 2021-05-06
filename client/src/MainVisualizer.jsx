@@ -15,6 +15,8 @@ const MainVisualizer = () => {
   const [startNodeCol, setStartNodeCol] = useState(15);
   const [finishNodeRow, setFinishNodeRow] = useState(3);
   const [finishNodeCol, setFinishNodeCol] = useState(42);
+  const [startPickedUp, setStartPickedUp] = useState(false);
+  const [finishPickedUp, setFinishPickedUp] = useState(false);
 
   useEffect(() => {
     const startingGrid = createGrid(
@@ -79,12 +81,27 @@ const MainVisualizer = () => {
     setMouseIsPressed(false);
   };
 
-  const setStartNode = () => {
-    setStartNodeRow(18);
-    setStartNodeCol(18);
+  const handleStartPickedUp = () => {
+    setStartPickedUp(true);
   };
 
-  const handleMoveStartOrStop = () => {};
+  const handleFinishPickedUp = () => {
+    setFinishPickedUp(true);
+  };
+
+  const setNewStartOrFinish = (newRow, newCol) => {
+    if (startPickedUp) {
+      setStartNodeRow(Number(newRow));
+      setStartNodeCol(Number(newCol));
+      setStartPickedUp(false);
+    }
+
+    if (finishPickedUp) {
+      setFinishNodeRow(Number(newRow));
+      setFinishNodeCol(Number(newCol));
+      setFinishPickedUp(false);
+    }
+  };
 
   return (
     <>
@@ -102,7 +119,6 @@ const MainVisualizer = () => {
         Visualize Dijkstra's Algorithm
       </button>
       <button onClick={() => resetBoard()}>Reset Board</button>
-      <button onClick={() => setStartNode()}>Set Start</button>
       <div className="grid">
         {grid.map((row, rowIndex) => (
           <div className="row" key={rowIndex}>
@@ -125,7 +141,9 @@ const MainVisualizer = () => {
                     handleMouseEnter(grid, row, col, mouseIsPressed)
                   }
                   onMouseUp={() => handleMouseUp()}
-                  onClick={() => handleMoveStartOrStop()}
+                  handleStartPickedUp={handleStartPickedUp}
+                  handleFinishPickedUp={handleFinishPickedUp}
+                  setNewStartOrFinish={setNewStartOrFinish}
                 />
               );
             })}

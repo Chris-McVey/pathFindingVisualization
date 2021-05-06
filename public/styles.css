@@ -1,4 +1,3 @@
-
 .node {
   width: 25px;
   height: 25px;
@@ -24,7 +23,7 @@
 .nodeWall {
   background-color: black;
   /* animation-name: wallAnimation; */
-  animation-duration: .25s;
+  animation-duration: 0.25s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -90,7 +89,7 @@
 
 .nodeShortestPath {
   animation-name: shortestPath;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
