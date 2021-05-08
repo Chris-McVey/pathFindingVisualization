@@ -6,6 +6,7 @@ import {
   getNewGridWithWallToggled,
   visualizeDijkstra,
   createGrid,
+  visualizeAStar,
 } from './utilityFunctions/gridHelpers';
 
 const MainVisualizer = () => {
@@ -117,6 +118,19 @@ const MainVisualizer = () => {
         }
       >
         Visualize Dijkstra's Algorithm
+      </button>
+      <button
+        onClick={() =>
+          visualizeAStar(
+            grid,
+            startNodeRow,
+            startNodeCol,
+            finishNodeRow,
+            finishNodeCol
+          )
+        }
+      >
+        Visualize A*
       </button>
       <button onClick={() => resetBoard()}>Reset Board</button>
       <div className="grid">
