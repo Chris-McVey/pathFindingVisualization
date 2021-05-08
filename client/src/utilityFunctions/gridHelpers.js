@@ -16,6 +16,8 @@ const createNode = (
   isVisited: false,
   isWall: false,
   previousNode: null,
+  distanceToFinish: Infinity,
+  aStarHeuristic: Infinity,
 });
 
 const createGrid = (

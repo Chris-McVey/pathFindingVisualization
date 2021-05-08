@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Node = ({
   row,
@@ -15,13 +16,15 @@ const Node = ({
   handleFinishPickedUp,
   setNewStartOrFinish,
 }) => {
-  const extraClassName = isFinish
-    ? 'nodeFinish'
-    : isStart
-    ? 'nodeStart'
-    : isWall
-    ? 'nodeWall'
-    : '';
+  let extraClassName = '';
+  if (isFinish) {
+    extraClassName = 'nodeFinish';
+  } else if (isStart) {
+    extraClassName = 'nodeStart';
+  } else if (isWall) {
+    extraClassName = 'nodeWall';
+  }
+
   if (isStart) {
     return (
       <div
@@ -82,6 +85,22 @@ const Node = ({
       col={col}
     />
   );
+};
+
+Node.propTypes = {
+  isStart: PropTypes.bool.isRequired,
+  isFinish: PropTypes.bool.isRequired,
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  isWall: PropTypes.bool.isRequired,
+  onMouseDown: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseUp: PropTypes.func.isRequired,
+  grid: PropTypes.arrayOf(PropTypes.any).isRequired,
+  mouseIsPressed: PropTypes.bool.isRequired,
+  handleStartPickedUp: PropTypes.func.isRequired,
+  handleFinishPickedUp: PropTypes.func.isRequired,
+  setNewStartOrFinish: PropTypes.func.isRequired,
 };
 
 export default Node;

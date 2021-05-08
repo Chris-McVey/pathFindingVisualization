@@ -13,8 +13,8 @@ const MainVisualizer = () => {
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [startNodeRow, setStartNodeRow] = useState(10);
   const [startNodeCol, setStartNodeCol] = useState(15);
-  const [finishNodeRow, setFinishNodeRow] = useState(3);
-  const [finishNodeCol, setFinishNodeCol] = useState(42);
+  const [finishNodeRow, setFinishNodeRow] = useState(10);
+  const [finishNodeCol, setFinishNodeCol] = useState(36);
   const [startPickedUp, setStartPickedUp] = useState(false);
   const [finishPickedUp, setFinishPickedUp] = useState(false);
 
