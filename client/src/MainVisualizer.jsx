@@ -4,7 +4,7 @@ import Node from './Node.jsx';
 
 import {
   getNewGridWithWallToggled,
-  visualizeDijkstra,
+  visualizePath,
   createGrid,
   visualizeAStar,
 } from './utilityFunctions/gridHelpers';
@@ -108,12 +108,13 @@ const MainVisualizer = () => {
     <>
       <button
         onClick={() =>
-          visualizeDijkstra(
+          visualizePath(
             grid,
             startNodeRow,
             startNodeCol,
             finishNodeRow,
-            finishNodeCol
+            finishNodeCol,
+            'dijkstra'
           )
         }
       >
@@ -121,12 +122,13 @@ const MainVisualizer = () => {
       </button>
       <button
         onClick={() =>
-          visualizeAStar(
+          visualizePath(
             grid,
             startNodeRow,
             startNodeCol,
             finishNodeRow,
-            finishNodeCol
+            finishNodeCol,
+            'aStar'
           )
         }
       >

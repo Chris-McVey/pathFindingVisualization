@@ -74,33 +74,26 @@ const animateSearch = (visitedNodesInOrder, nodesInShortestPathOrder) => {
   }
 };
 
-const visualizeDijkstra = (
+const visualizePath = (
   grid,
   startNodeRow,
   startNodeCol,
   finishNodeRow,
-  finishNodeCol
+  finishNodeCol,
+  algorithm
 ) => {
+  let algorithmFunction = null;
+  if (algorithm === 'dijkstra') {
+    algorithmFunction = dijkstra;
+  } else if (algorithm === 'aStar') {
+    algorithmFunction = aStar;
+  }
   const startNode = grid[startNodeRow][startNodeCol];
   const finishNode = grid[finishNodeRow][finishNodeCol];
-  const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+  const visitedNodesInOrder = algorithmFunction(grid, startNode, finishNode);
   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
   animateSearch(visitedNodesInOrder, nodesInShortestPathOrder);
 };
-
-const visualizeAStar = (
-  grid,
-  startNodeRow,
-  startNodeCol,
-  finishNodeRow,
-  finishNodeCol
-) => {
-  const startNode = grid[startNodeRow][startNodeCol];
-  const finishNode = grid[finishNodeRow][finishNodeCol];
-  const visitedNodesInOrder = aStar(grid, startNode, finishNode);
-  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-  animateSearch(visitedNodesInOrder, nodesInShortestPathOrder);
-}
 
 const getNewGridWithWallToggled = (grid, row, col) => {
   const newGrid = grid.slice();
@@ -116,8 +109,7 @@ const getNewGridWithWallToggled = (grid, row, col) => {
 export {
   getNewGridWithWallToggled,
   animateShortestPath,
-  visualizeDijkstra,
+  visualizePath,
   createGrid,
   createNode,
-  visualizeAStar,
 };
