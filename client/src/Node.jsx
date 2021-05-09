@@ -37,9 +37,7 @@ const Node = ({
         onDragOver={(e) => {
           e.preventDefault();
         }}
-        onDrop={(e) => {
-          console.log(e);
-        }}
+        onDrop={() => {}}
         role="presentation"
         row={row}
         col={col}
@@ -58,9 +56,7 @@ const Node = ({
         onDragOver={(e) => {
           e.preventDefault();
         }}
-        onDrop={(e) => {
-          console.log(e);
-        }}
+        onDrop={() => {}}
         role="presentation"
         row={row}
         col={col}

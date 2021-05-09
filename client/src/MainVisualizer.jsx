@@ -7,7 +7,6 @@ import {
   getNewGridWithWallToggled,
   visualizePath,
   createGrid,
-  visualizeAStar,
 } from './utilityFunctions/gridHelpers';
 
 const MainVisualizer = () => {
@@ -41,7 +40,7 @@ const MainVisualizer = () => {
     setGrid(newStartingPointGrid);
   }, [startNodeCol, finishNodeCol]);
 
-  const resetBoard = () => {
+  const resetBoard = (keepWalls) => {
     const blankGrid = createGrid(
       startNodeRow,
       startNodeCol,
@@ -55,11 +54,18 @@ const MainVisualizer = () => {
         node.className = 'node nodeStart';
       } else if (node.id === `node-${finishNodeRow}-${finishNodeCol}`) {
         node.className = 'node nodeFinish';
+      } else if (keepWalls) {
+        if (node.className !== 'node nodeWall') {
+          node.className = 'node';
+          node.distanceToFinish = Infinity;
+          node.distance = Infinity;
+          node.aStarHeuristic = Infinity;
+        }
       } else {
         node.className = 'node';
+        setGrid(blankGrid);
       }
     });
-    setGrid(blankGrid);
   };
 
   const handleMouseDown = (grid, row, col, isStart, isFinish) => {
@@ -136,6 +142,7 @@ const MainVisualizer = () => {
         Visualize A*
       </button>
       <button onClick={() => resetBoard()}>Reset Board</button>
+      <button onClick={() => resetBoard(grid)}>Reset Board Keep Walls</button>
       <div className="grid">
         {grid.map((row, rowIndex) => (
           <div className="row" key={rowIndex}>
