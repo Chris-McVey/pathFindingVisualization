@@ -2,8 +2,6 @@ import React from 'react';
 
 import MainVisualizer from './MainVisualizer.jsx';
 
-const App = () => {
-  return <MainVisualizer />;
-};
+const App = () => <MainVisualizer />;
 
 export default App;
