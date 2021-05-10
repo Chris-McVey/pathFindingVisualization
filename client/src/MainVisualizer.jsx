@@ -60,6 +60,9 @@ const MainVisualizer = () => {
           node.distanceToFinish = Infinity;
           node.distance = Infinity;
           node.aStarHeuristic = Infinity;
+          node.isVisited = false;
+          node.previousNode = null;
+          node.isWall = true;
         }
       } else {
         node.className = 'node';
@@ -142,7 +145,7 @@ const MainVisualizer = () => {
         Visualize A*
       </button>
       <button onClick={() => resetBoard()}>Reset Board</button>
-      <button onClick={() => resetBoard(grid)}>Reset Board Keep Walls</button>
+      {/* <button onClick={() => resetBoard(grid)}>Reset Board Keep Walls</button> */}
       <div className="grid">
         {grid.map((row, rowIndex) => (
           <div className="row" key={rowIndex}>
