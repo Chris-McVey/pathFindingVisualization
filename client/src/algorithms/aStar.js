@@ -50,6 +50,7 @@ const aStar = (grid, startNode, finishNode) => {
     }
     updateUnvisitedNeighborsAStar(closestNode, finishNode, grid);
   }
+  return visitedNodesInOrder;
 };
 
 export { aStar, getNodesInShortestPathOrder };

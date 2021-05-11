@@ -37,9 +37,9 @@ const dijkstra = (grid, startNode, finishNode) => {
     if (closestNode === finishNode) {
       return visitedNodesInOrder;
     }
-
     updateUnvisitedNeighborsDijkstra(closestNode, grid);
   }
+  return visitedNodesInOrder;
 };
 
 export { dijkstra, getNodesInShortestPathOrder };

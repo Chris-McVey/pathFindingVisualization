@@ -127,6 +127,7 @@ const MainVisualizer = () => {
             'dijkstra'
           )
         }
+        type="button"
       >
         Visualize Dijkstra's Algorithm
       </button>
@@ -141,10 +142,13 @@ const MainVisualizer = () => {
             'aStar'
           )
         }
+        type="button"
       >
         Visualize A*
       </button>
-      <button onClick={() => resetBoard()}>Reset Board</button>
+      <button onClick={() => resetBoard()} type="button">
+        Reset Board
+      </button>
       {/* <button onClick={() => resetBoard(grid)}>Reset Board Keep Walls</button> */}
       <div className="grid">
         {grid.map((row, rowIndex) => (
