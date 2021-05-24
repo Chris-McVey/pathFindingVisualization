@@ -1,6 +1,5 @@
 import {
   getUnvisitedNeighbors,
-  getNodesInShortestPathOrder,
   getAllNodes,
 } from './algorithmHelpers';
 
@@ -42,4 +41,4 @@ const dijkstra = (grid, startNode, finishNode) => {
   return visitedNodesInOrder;
 };
 
-export { dijkstra, getNodesInShortestPathOrder };
+export default dijkstra;

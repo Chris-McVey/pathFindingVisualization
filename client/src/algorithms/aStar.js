@@ -1,8 +1,4 @@
-import {
-  getUnvisitedNeighbors,
-  getNodesInShortestPathOrder,
-  getAllNodes,
-} from './algorithmHelpers';
+import { getUnvisitedNeighbors, getAllNodes } from './algorithmHelpers';
 
 const sortNodesByHeuristic = (unsortedNodes) => {
   unsortedNodes.sort(
@@ -53,4 +49,4 @@ const aStar = (grid, startNode, finishNode) => {
   return visitedNodesInOrder;
 };
 
-export { aStar, getNodesInShortestPathOrder };
+export default aStar;

@@ -1,6 +1,10 @@
-import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
+import dijkstra from '../algorithms/dijkstra';
 
-import { aStar } from '../algorithms/aStar';
+import aStar from '../algorithms/aStar';
+
+import depthFirst from '../algorithms/depthFirst';
+
+import { getNodesInShortestPathOrder } from '../algorithms/algorithmHelpers.js';
 
 const createNode = (
   row,
@@ -87,6 +91,8 @@ const visualizePath = (
     algorithmFunction = dijkstra;
   } else if (algorithm === 'aStar') {
     algorithmFunction = aStar;
+  } else if (algorithm === 'depthFirst') {
+    algorithmFunction = depthFirst;
   }
   const startNode = grid[startNodeRow][startNodeCol];
   const finishNode = grid[finishNodeRow][finishNodeCol];

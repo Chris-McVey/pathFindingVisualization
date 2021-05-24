@@ -146,6 +146,21 @@ const MainVisualizer = () => {
       >
         Visualize A*
       </button>
+      <button
+        onClick={() =>
+          visualizePath(
+            grid,
+            startNodeRow,
+            startNodeCol,
+            finishNodeRow,
+            finishNodeCol,
+            'depthFirst'
+          )
+        }
+        type="button"
+      >
+        Visualize Depth First Search
+      </button>
       <button onClick={() => resetBoard()} type="button">
         Reset Board
       </button>
